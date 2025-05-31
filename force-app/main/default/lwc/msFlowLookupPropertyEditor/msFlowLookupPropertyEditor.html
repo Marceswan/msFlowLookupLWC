@@ -1,0 +1,208 @@
+<template>
+    <div class="slds-form">
+        <!-- Object Selection Section -->
+        <div class="slds-box slds-theme_inverse slds-m-bottom_small">
+            <h3 class="slds-text-heading_small slds-m-bottom_small">Object Selection</h3>
+        </div>
+        
+        <!-- Object Selection -->
+        <lightning-combobox
+            name="objectApiName"
+            label="Object API Name"
+            value={objectApiName}
+            placeholder="Select an object..."
+            options={objectOptions}
+            field-level-help="Select the Salesforce object to search"
+            onchange={handleObjectChange}
+            required>
+        </lightning-combobox>
+
+        <!-- Show message when no object is selected -->
+        <template if:false={showFieldConfiguration}>
+            <div class="slds-m-top_medium">
+                <div class="slds-box slds-box_small slds-theme_shade slds-text-align_center">
+                    <div class="slds-text-color_weak">
+                        <lightning-icon 
+                            icon-name="utility:info" 
+                            alternative-text="Info" 
+                            size="small"
+                            class="slds-m-bottom_x-small">
+                        </lightning-icon>
+                        <p class="slds-text-body_regular">
+                            Select an object above to configure lookup fields
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Show other fields only when object is selected -->
+        <template if:true={showFieldConfiguration}>
+            <div class="slds-m-top_medium">
+                <!-- Loading spinner -->
+                <template if:true={isLoadingFields}>
+                    <div class="slds-is-relative slds-m-vertical_large">
+                        <lightning-spinner alternative-text="Loading fields" size="small"></lightning-spinner>
+                    </div>
+                </template>
+
+                <!-- Field configuration -->
+                <template if:false={isLoadingFields}>
+                    <!-- Object & Search Options Section -->
+                    <div class="slds-box slds-theme_inverse slds-m-bottom_small">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Search Configuration</h3>
+                    </div>
+                    
+                    <!-- Primary Field -->
+                    <lightning-combobox
+                        name="primaryField"
+                        label="Primary Field"
+                        value={primaryField}
+                        placeholder="Select primary field..."
+                        options={primaryFieldOptions}
+                        field-level-help="The main field to display in search results"
+                        onchange={handlePrimaryFieldChange}
+                        required>
+                    </lightning-combobox>
+
+                    <!-- Secondary Field -->
+                    <lightning-combobox
+                        name="secondaryField"
+                        label="Secondary Field"
+                        value={secondaryField}
+                        placeholder="Select secondary field (optional)..."
+                        options={secondaryFieldOptions}
+                        field-level-help="Additional field to display below the primary field"
+                        onchange={handleSecondaryFieldChange}>
+                    </lightning-combobox>
+
+                    <!-- Tertiary Field -->
+                    <lightning-combobox
+                        name="tertiaryField"
+                        label="Tertiary Field"
+                        value={tertiaryField}
+                        placeholder="Select tertiary field (optional)..."
+                        options={tertiaryFieldOptions}
+                        field-level-help="Additional field to display with secondary field (separated by •)"
+                        onchange={handleTertiaryFieldChange}>
+                    </lightning-combobox>
+                    
+                    <!-- Placeholder -->
+                    <lightning-input
+                        type="text"
+                        label="Placeholder Text"
+                        name="placeholder"
+                        value={placeholder}
+                        placeholder="Enter placeholder text..."
+                        field-level-help="Text shown when the search input is empty"
+                        onchange={handlePlaceholderChange}>
+                    </lightning-input>
+
+                    <!-- Display Options Section -->
+                    <div class="slds-m-top_medium">
+                        <div class="slds-box slds-theme_inverse slds-m-bottom_small">
+                            <h3 class="slds-text-heading_small slds-m-bottom_small">Display Options</h3>
+                        </div>
+                        
+                        <!-- Multiple Selection Toggle -->
+                        <lightning-input
+                            type="toggle"
+                            label="Allow Multiple Selection"
+                            name="allowMultipleSelection"
+                            message-toggle-active="Enabled"
+                            message-toggle-inactive="Disabled"
+                            checked={allowMultipleSelection}
+                            field-level-help="Allow users to select multiple records"
+                            onchange={handleMultipleSelectionChange}>
+                        </lightning-input>
+                        
+                        <!-- Display Format Selection (only show when multiple selection is enabled) -->
+                        <template if:true={allowMultipleSelection}>
+                            <div class="slds-m-top_medium">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label slds-m-bottom_x-small">Display Format</label>
+                                    <lightning-button-group>
+                                        <lightning-button
+                                            label="Pills"
+                                            value="pills"
+                                            variant={pillsButtonVariant}
+                                            onclick={handleDisplayFormatChange}>
+                                        </lightning-button>
+                                        <lightning-button
+                                            label="Datatable"
+                                            value="datatable"
+                                            variant={datatableButtonVariant}
+                                            onclick={handleDisplayFormatChange}>
+                                        </lightning-button>
+                                    </lightning-button-group>
+                                </div>
+                                
+                                <!-- Table Fields Configuration (only show when datatable is selected) -->
+                                <template if:true={showTableFieldsButton}>
+                                    <div class="slds-form-element slds-m-top_small">
+                                        <label class="slds-form-element__label slds-m-bottom_x-small">Table Configuration</label>
+                                        <lightning-button
+                                            label="Select Table Fields"
+                                            icon-name="utility:table"
+                                            variant="outline-brand"
+                                            onclick={handleOpenFieldSelector}>
+                                        </lightning-button>
+                                        <template if:true={tableFields.length}>
+                                            <div class="slds-form-element__help slds-m-top_xxx-small">
+                                                {tableFieldsDisplay}
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    
+    <!-- Field Selection Modal -->
+    <template if:true={showFieldSelectorModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" aria-labelledby="modal-heading-01" aria-modal="true">
+            <div class="slds-modal__container">
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseFieldSelector}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Table Fields</h1>
+                </header>
+                
+                <!-- Modal Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-dual-listbox
+                        name="tableFields"
+                        label="Select fields to display in the table"
+                        source-label="Available Fields"
+                        selected-label="Selected Fields"
+                        field-level-help="Choose which fields to display as columns in the datatable"
+                        options={dualListboxOptions}
+                        value={tempSelectedTableFields}
+                        onchange={handleTableFieldsChange}>
+                    </lightning-dual-listbox>
+                </div>
+                
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={handleCloseFieldSelector}>
+                    </lightning-button>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Save" 
+                        onclick={handleSaveFieldSelection}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+    <description>Advanced lookup component for Salesforce Flows with support for single and multiple record selection, customizable display formats, and dynamic field configuration.</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <masterLabel>MS Flow Lookup</masterLabel>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen" configurationEditor="c-ms-flow-lookup-property-editor">
+            <propertyType name="T" extends="SObject" label="Record Type" description="Generic sObject data type used for record properties" />
+            
+            <!-- Input Properties -->
+            <property name="objectApiName" type="String" label="Object API Name" description="The API name of the Salesforce object to search (e.g., Account, Contact)" />
+            <property name="primaryField" type="String" label="Primary Field" description="The main field to display and search (e.g., Name)" />
+            <property name="secondaryFields" type="String" label="Secondary Fields" description="Additional field to display in search results" />
+            <property name="tertiaryFields" type="String" label="Tertiary Fields" description="Third field to display in search results" />
+            <property name="allowMultipleSelection" type="Boolean" label="Allow Multiple Selection" description="Enable selection of multiple records" />
+            <property name="displayFormat" type="String" label="Display Format" description="How to display selected records: pills or datatable" />
+            <property name="tableFields" type="String" label="Table Fields" description="Comma-separated list of fields to show in datatable format" />
+            <property name="placeholder" type="String" label="Placeholder Text" description="Text to display in empty search input" />
+            <property name="recordLimit" type="Integer" label="Record Limit" description="[Deprecated] Maximum number of search results" />
+            <property name="whereClause" type="String" label="Where Clause" description="[Deprecated] Additional SOQL WHERE conditions" />
+
+            
+            <!-- Output Properties -->
+            <property name="recordId" type="String" label="Selected Record ID" description="ID of the selected record (single selection only)" role="outputOnly" />
+            <property name="primaryFieldValue" type="String" label="Primary Field Value" description="Value of the primary field for selected record" role="outputOnly" />
+            <property name="secondaryFieldValue" type="String" label="Secondary Field Value" description="Value of the secondary field for selected record" role="outputOnly" />
+            <property name="tertiaryFieldValue" type="String" label="Tertiary Field Value" description="Value of the tertiary field for selected record" role="outputOnly" />
+            <property name="selectedRecordIds" type="String[]" label="Selected Record IDs" description="Array of IDs for selected records (multiple selection only)" role="outputOnly" />
+            <property name="selectedRecords" type="{T[]}" label="Selected Records" description="Array of selected record objects (multiple selection only)" role="outputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

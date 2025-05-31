@@ -1,0 +1,85 @@
+/* Ensure loading spinner is centered and has proper height */
+.slds-is-relative {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Consistent spacing between form elements */
+lightning-combobox,
+lightning-input {
+    margin-bottom: 0;
+}
+
+/* Section header styling */
+h3.slds-text-heading_small {
+    color: #3e3e3c;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dddbda;
+}
+
+/* Inverse theme section headers */
+.slds-theme_inverse h3.slds-text-heading_small {
+    color: #ffffff;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Section header boxes */
+.slds-box.slds-theme_inverse {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Form element spacing */
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+/* Button group styling */
+lightning-button-group {
+    display: inline-block;
+}
+
+/* Label styling for consistency */
+.slds-form-element__label {
+    font-weight: 600;
+    color: #181818;
+    font-size: 0.875rem;
+}
+
+/* Help text styling */
+.slds-form-element__help {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin-top: 0.25rem;
+}
+
+/* Modal styling */
+.slds-modal__content {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+/* Ensure proper spacing in the form */
+.slds-form {
+    max-width: 100%;
+}
+
+/* Info box icon styling */
+.slds-box lightning-icon {
+    display: block;
+    margin: 0 auto 0.5rem auto;
+}
+
+/* Responsive design */
+@media (max-width: 48rem) {
+    .slds-form-element__label {
+        font-size: 0.8125rem;
+    }
+}

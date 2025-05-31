@@ -1,0 +1,68 @@
+/* Ensure proper spacing and alignment for the lookup component */
+.slds-combobox {
+    position: relative;
+}
+
+.slds-dropdown {
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+.slds-listbox__option:hover {
+    background-color: var(--slds-g-color-neutral-base-95);
+    cursor: pointer;
+}
+
+.slds-listbox__option:focus {
+    background-color: var(--slds-g-color-brand-base-20);
+    outline: none;
+}
+
+/* Ensure proper pill container spacing */
+.slds-pill-container {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* Custom styling for selected value in single selection */
+.slds-combobox__input-value {
+    background-color: var(--slds-g-color-neutral-base-100);
+    border-color: var(--slds-g-color-border-base-1);
+}
+
+/* Improve readability of secondary/tertiary text */
+.slds-listbox__option-meta {
+    color: var(--slds-g-color-neutral-base-50);
+    font-size: 0.75rem;
+}
+
+/* Ensure proper loading state styling */
+.slds-listbox__option .slds-spinner {
+    margin: 0.5rem auto;
+}
+
+/* Ensure proper icon spacing in single selection */
+.slds-combobox__input-entity-icon {
+    left: 0.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slds-input-has-icon_left-right .slds-input {
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+}
+
+/* Datatable styling */
+lightning-datatable {
+    --sds-c-datatable-sizing-border: 1px;
+}
+
+/* Responsive behavior for property editor */
+@media (max-width: 768px) {
+    .slds-col.slds-large-size_1-of-2 {
+        width: 100%;
+    }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>false</isExposed>
+    <description>Custom property editor for MS Flow Lookup component. Provides dynamic object and field selection interface for Flow Builder configuration.</description>
+    <masterLabel>MS Flow Lookup Property Editor</masterLabel>
+</LightningComponentBundle>
