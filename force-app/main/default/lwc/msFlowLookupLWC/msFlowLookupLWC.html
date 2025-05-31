@@ -107,8 +107,8 @@
                             </template>
                             
                             <!-- No results -->
-                            <template if:true={searchResults} if:false={isLoading}>
-                                <template if:false={searchResults.length}>
+                            <template if:true={filteredSearchResults} if:false={isLoading}>
+                                <template if:false={filteredSearchResults.length}>
                                     <li role="presentation" class="slds-listbox__item">
                                         <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta">
                                             <span class="slds-media__figure slds-listbox__option-icon">
@@ -123,7 +123,7 @@
                             </template>
                             
                             <!-- Search results -->
-                            <template for:each={searchResults} for:item="record">
+                            <template for:each={filteredSearchResults} for:item="record">
                                 <li key={record.Id} role="presentation" class="slds-listbox__item">
                                     <div
                                         class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
@@ -212,8 +212,8 @@
                             </template>
                             
                             <!-- No results -->
-                            <template if:true={searchResults} if:false={isLoading}>
-                                <template if:false={searchResults.length}>
+                            <template if:true={filteredSearchResults} if:false={isLoading}>
+                                <template if:false={filteredSearchResults.length}>
                                     <li role="presentation" class="slds-listbox__item">
                                         <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta">
                                             <span class="slds-media__figure slds-listbox__option-icon">
@@ -228,7 +228,7 @@
                             </template>
                             
                             <!-- Search results -->
-                            <template for:each={searchResults} for:item="record">
+                            <template for:each={filteredSearchResults} for:item="record">
                                 <li key={record.Id} role="presentation" class="slds-listbox__item">
                                     <div
                                         class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"

@@ -378,6 +378,8 @@ export default class MsFlowLookupLWC extends LightningElement {
         this.selectedRecordsInternal = [];
         this.updateOutputProperties();
         this.searchTerm = '';
+        // Trigger a new search to refresh the available options
+        this.performSearch();
     }
 
     // Core Methods
@@ -421,6 +423,10 @@ export default class MsFlowLookupLWC extends LightningElement {
         try {
             this.selectedRecordsInternal = this.selectedRecordsInternal.filter(record => record.Id !== recordId);
             this.updateOutputProperties();
+            // If dropdown is open, refresh to show the removed record
+            if (this.showDropdown) {
+                this.performSearch();
+            }
         } catch (error) {
             console.error('Error removing record:', error);
         }
@@ -583,10 +589,6 @@ export default class MsFlowLookupLWC extends LightningElement {
                     iconName: this.objectIconName // Use the component's icon which was loaded from Apex
                 };
             });
-            
-            // Filter out already selected records in both single and multiple selection modes
-            const selectedIds = this.selectedRecordsInternal.map(r => r.Id);
-            this.searchResults = this.searchResults.filter(record => !selectedIds.includes(record.Id));
 
             console.log('Search completed. Results:', this.searchResults.length);
 
@@ -611,6 +613,15 @@ export default class MsFlowLookupLWC extends LightningElement {
         }
     }
 
+    /**
+     * @description Gets filtered search results excluding already selected records
+     * @return {Array} Filtered array of search results
+     */
+    get filteredSearchResults() {
+        const selectedIds = this.selectedRecordsInternal.map(r => r.Id);
+        return this.searchResults.filter(record => !selectedIds.includes(record.Id));
+    }
+    
     /**
      * @description Generates pill items for lightning-pill-container
      * @return {Array} Array of pill item configurations
