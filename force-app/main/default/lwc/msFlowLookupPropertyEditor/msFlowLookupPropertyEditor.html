@@ -153,6 +153,18 @@
                                             </div>
                                         </template>
                                     </div>
+                                    
+                                    <!-- Datatable Title -->
+                                    <lightning-input
+                                        type="text"
+                                        label="Datatable Title"
+                                        name="datatableTitle"
+                                        value={datatableTitle}
+                                        placeholder="Enter title for datatable..."
+                                        field-level-help="Title displayed above the selected records datatable"
+                                        class="slds-m-top_small"
+                                        onchange={handleDatatableTitleChange}>
+                                    </lightning-input>
                                 </template>
                             </div>
                         </template>
