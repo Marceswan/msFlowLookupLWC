@@ -576,27 +576,17 @@ export default class MsFlowLookupLWC extends LightningElement {
 
             // Process results to add computed display properties
             this.searchResults = (result || []).map(record => {
-                // Use icon from record if available, otherwise use component's icon
-                let iconName = this.objectIconName;
-                
-                // Check if the record has a custom icon property from Apex
-                if (record.iconName) {
-                    iconName = record.iconName;
-                }
-                
                 return {
                     ...record,
                     primaryFieldDisplay: record[this.primaryField] || '',
                     secondaryFieldDisplay: this.getSecondaryValue(record),
-                    iconName: iconName
+                    iconName: this.objectIconName // Use the component's icon which was loaded from Apex
                 };
             });
             
-            // Filter out already selected records in multiple selection mode
-            if (this.allowMultipleSelection) {
-                const selectedIds = this.selectedRecordsInternal.map(r => r.Id);
-                this.searchResults = this.searchResults.filter(record => !selectedIds.includes(record.Id));
-            }
+            // Filter out already selected records in both single and multiple selection modes
+            const selectedIds = this.selectedRecordsInternal.map(r => r.Id);
+            this.searchResults = this.searchResults.filter(record => !selectedIds.includes(record.Id));
 
             console.log('Search completed. Results:', this.searchResults.length);
 
