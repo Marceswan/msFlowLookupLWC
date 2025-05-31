@@ -20,7 +20,7 @@
             <property name="displayFormat" type="String" label="Display Format" description="How to display selected records: pills or datatable" />
             <property name="tableFields" type="String" label="Table Fields" description="Comma-separated list of fields to show in datatable format" />
             <property name="placeholder" type="String" label="Placeholder Text" description="Text to display in empty search input" />
-            <property name="datatableTitle" type="String" label="Datatable Title" description="Title to display above the selected records datatable" />
+            <property name="selectedRecordsTitle" type="String" label="Selected Records Title" description="Title to display above the selected records datatable" />
             <property name="recordLimit" type="Integer" label="Record Limit" description="[Deprecated] Maximum number of search results" />
             <property name="whereClause" type="String" label="Where Clause" description="[Deprecated] Additional SOQL WHERE conditions" />
 

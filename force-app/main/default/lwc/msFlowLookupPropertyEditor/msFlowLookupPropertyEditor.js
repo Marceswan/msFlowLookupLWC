@@ -129,9 +129,9 @@ export default class MsFlowLookupPropertyEditor extends LightningElement {
             this.updateInputVariable('placeholder', 'Search...');
         }
         
-        // Set default datatable title if not provided
-        if (!this.inputValues.datatableTitle) {
-            this.updateInputVariable('datatableTitle', 'Selected Records');
+        // Set default selected records title if not provided
+        if (!this.inputValues.selectedRecordsTitle) {
+            this.updateInputVariable('selectedRecordsTitle', 'Selected Records');
         }
         
         // Set default multiple selection if not provided
@@ -341,11 +341,11 @@ export default class MsFlowLookupPropertyEditor extends LightningElement {
     }
     
     /**
-     * @description Handles datatable title change
+     * @description Handles selected records title change
      * @param {Event} event - Change event from input
      */
-    handleDatatableTitleChange(event) {
-        this.updateInputVariable('datatableTitle', event.target.value);
+    handleSelectedRecordsTitleChange(event) {
+        this.updateInputVariable('selectedRecordsTitle', event.target.value);
     }
 
     /**
@@ -523,11 +523,11 @@ export default class MsFlowLookupPropertyEditor extends LightningElement {
     }
     
     /**
-     * @description Gets datatable title
-     * @return {string} Datatable title
+     * @description Gets selected records title
+     * @return {string} Selected records title
      */
-    get datatableTitle() {
-        return this.inputValues.datatableTitle || 'Selected Records';
+    get selectedRecordsTitle() {
+        return this.inputValues.selectedRecordsTitle || 'Selected Records';
     }
 
     /**

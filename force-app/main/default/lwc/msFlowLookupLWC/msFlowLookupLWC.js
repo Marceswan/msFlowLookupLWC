@@ -42,7 +42,7 @@ export default class MsFlowLookupLWC extends LightningElement {
     }
     
     @api placeholder = 'Search...';
-    @api datatableTitle = 'Selected Records'; // Title for datatable display
+    @api selectedRecordsTitle = 'Selected Records'; // Title for datatable display
     @api recordLimit = 10; // This property exists for backward compatibility but is ignored
     @api whereClause = ''; // This property exists for backward compatibility but is ignored
 
